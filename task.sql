@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Дек 14 2020 г., 10:30
+-- Время создания: Дек 14 2020 г., 10:38
 -- Версия сервера: 10.3.22-MariaDB
 -- Версия PHP: 7.1.33
 
@@ -36,13 +36,6 @@ CREATE TABLE `items` (
   `user` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Дамп данных таблицы `items`
---
-
-INSERT INTO `items` (`id`, `created_at`, `title`, `price`, `image`, `user`) VALUES
-(3, 1607925323, 'Notebook2', 5500.050, NULL, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -56,22 +49,6 @@ CREATE TABLE `users` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Дамп данных таблицы `users`
---
-
-INSERT INTO `users` (`id`, `phone`, `name`, `email`, `password`) VALUES
-(1, '+380xxxxxxxxx', 'Alex', 'alex@mail.com', 'qwert'),
-(2, '+380xxxxxxxxx', 'Alex', 'alex@mail.com', 'qwerty'),
-(3, '+380xxxxxxxxx', 'Alex', 'alex@mail.com', 'qwerty'),
-(4, '+380xxxxxxxxx', 'Alex', 'alex@mail.com', 'qwerty'),
-(5, '+380xxxxxxxxx', 'Alex', 'alex@mail.com', 'qwerty'),
-(6, '+380xxxxxxxxx', 'Alex', 'alex@mail.com', 'qwerty'),
-(7, '+380xxxxxxxxx', 'Alex', 'alex@mail.com', 'qwerty'),
-(8, '+380xxxxxxxxx', 'Alex', 'alex@mail.com', 'qwerty'),
-(9, '+380xxxxxxxxx', 'Alex', 'alex@mail.com', 'qwerty'),
-(10, '+380xxxxxxxxx', 'Alex', 'alex@mail.com', 'qwerty');
 
 --
 -- Индексы сохранённых таблиц
