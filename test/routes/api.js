@@ -15,6 +15,13 @@ var unlink = util.promisify(fs.unlink)
 var jwtOptions = {}
 jwtOptions.secretOrKey = 'TestKey';
 
+var errorFormatter = ({ location, msg, param, value, nestedErrors }) => {
+    // Build your resulting errors however you want! String, object, whatever - it works!
+    return {
+        field: param,
+        message: msg
+    }
+};
 
 //Update current user
 router.put('/users/me', [
@@ -27,9 +34,9 @@ router.put('/users/me', [
     body('new_password').if(body('current_password').exists()).isLength({ min: 5 })
 
 ], async (req, res) => {
-    const errors = validationResult(req);
+     const errors = validationResult(req).formatWith(errorFormatter);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json(errors.array());
     }
 
     try {
@@ -51,7 +58,7 @@ router.put('/users/me', [
         var user = await db.updateUser(req.user.id, body)
 
     } catch (err) {
-        throw err
+        
         return res.status(500).json({ ERROR: err })
     }
 
@@ -119,9 +126,9 @@ router.post('/users', [
     body('password').isLength({ min: 5 })
 ], async (req, res) => {
 
-    const errors = validationResult(req);
+        const errors = validationResult(req).formatWith(errorFormatter);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json( errors.array());
     }
 
     let body = {
@@ -147,13 +154,15 @@ router.post('/users', [
 
 //login
 router.post('/sessionsBody', [
-    body('email').isEmail().withMessage('Alah'),
+    body('email').isEmail().withMessage('incorrect Email'),
     body('password').isLength({ min: 5 })
 ], async (req, res) => {
 
-    const errors = validationResult(req);
+    const errors = validationResult(req).formatWith(errorFormatter);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+
+
+        return res.status(400).json(errors.array());
     }
 
     try {
@@ -199,9 +208,9 @@ router.put('/items/:id', [
     body('price').isLength({ min: 1 }).optional(),
 
 ], async (req, res) => {
-    const errors = validationResult(req);
+    const errors = validationResult(req).formatWith(errorFormatter);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).json(errors.array());
     }
 
     try {
